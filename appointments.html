@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Appointments | MediTrack</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#eef5fb;
+    padding:30px;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#0284c7;
+    color:white;
+    padding:15px;
+}
+
+td{
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+.accept-btn{
+    background:green;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.reject-btn{
+    background:red;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.status{
+    padding:8px 14px;
+    border-radius:20px;
+    font-weight:bold;
+}
+
+.pending{
+    background:orange;
+    color:white;
+}
+
+.accepted{
+    background:green;
+    color:white;
+}
+
+.rejected{
+    background:red;
+    color:white;
+}
+
+.back{
+    display:inline-block;
+    margin-bottom:20px;
+    background:#0284c7;
+    color:white;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+{% if current_user.role == 'admin' %}
+<a href="/admin" class="back">
+⬅ Admin Dashboard
+</a>
+
+{% elif current_user.role == 'doctor' %}
+<a href="/doctor" class="back">
+⬅ Doctor Dashboard
+</a>
+
+{% else %}
+<a href="/patient" class="back">
+⬅ Patient Dashboard
+</a>
+{% endif %}
+
+<div class="container">
+
+<h1>Appointments</h1>
+
+<table>
+
+<tr>
+<th>Patient</th>
+<th>Doctor</th>
+<th>Date</th>
+<th>Problem</th>
+<th>Status</th>
+
+{% if current_user.role == "doctor" %}
+<th>Action</th>
+{% endif %}
+
+</tr>
+
+{% for appointment in appointments %}
+
+<tr>
+
+<td>
+{{ appointment.patient_name }}
+</td>
+
+<td>
+Dr. {{ appointment.doctor_name }}
+</td>
+
+<td>
+{{ appointment.appointment_date }}
+</td>
+
+<td>
+{{ appointment.problem }}
+</td>
+
+<td>
+
+{% if appointment.status == "Pending" %}
+<span class="status pending">
+Pending
+</span>
+
+{% elif appointment.status == "Accepted" %}
+<span class="status accepted">
+Accepted
+</span>
+
+{% else %}
+<span class="status rejected">
+Rejected
+</span>
+{% endif %}
+
+</td>
+
+{% if current_user.role == "doctor" %}
+
+<td>
+
+{% if appointment.status == "Pending" %}
+
+<form
+method="POST"
+action="/update-appointment/{{ appointment.id }}"
+style="display:inline;"
+>
+
+<input
+type="hidden"
+name="action"
+value="accept"
+>
+
+<button class="accept-btn">
+Accept
+</button>
+
+</form>
+
+<form
+method="POST"
+action="/update-appointment/{{ appointment.id }}"
+style="display:inline;"
+>
+
+<input
+type="hidden"
+name="action"
+value="reject"
+>
+
+<button class="reject-btn">
+Reject
+</button>
+
+</form>
+
+{% else %}
+Done
+{% endif %}
+
+</td>
+
+{% endif %}
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Book Appointment | MediTrack</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#eef7ff;
+}
+
+.container{
+    width:550px;
+    margin:50px auto;
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+h1{
+    text-align:center;
+    color:#0284c7;
+    margin-bottom:30px;
+}
+
+.input-box{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:15px;
+    border:1px solid #cbd5e1;
+    border-radius:12px;
+    font-size:15px;
+}
+
+textarea{
+    resize:none;
+    height:120px;
+}
+
+.btn{
+    width:100%;
+    background:#0284c7;
+    color:white;
+    border:none;
+    padding:16px;
+    border-radius:12px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#0369a1;
+}
+
+.back{
+    display:inline-block;
+    margin-bottom:20px;
+    text-decoration:none;
+    background:#0284c7;
+    color:white;
+    padding:12px 20px;
+    border-radius:12px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+{% if current_user.role == 'admin' %}
+<a href="/admin" class="back">
+⬅ Admin Dashboard
+</a>
+{% elif current_user.role == 'doctor' %}
+<a href="/doctor" class="back">
+⬅ Doctor Dashboard
+</a>
+{% elif current_user.role == 'patient' %}
+<a href="/patient" class="back">
+⬅ Patient Dashboard
+</a>
+{% endif %}
+
+<h1>📅 Book Appointment</h1>
+
+<form method="POST">
+
+<div class="input-box">
+<label>Patient Name</label>
+<input type="text"
+name="patient_name"
+required>
+</div>
+
+
+<div class="input-box">
+
+<label>Select Doctor</label>
+
+<select
+name="doctor_id"
+required
+>
+
+<option value="">
+Choose Doctor
+</option>
+
+{% for doctor in doctors %}
+
+<option value="{{ doctor.id }}">
+Dr. {{ doctor.fullname }}
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+
+
+<div class="input-box">
+<label>Appointment Date</label>
+<input type="date"
+name="appointment_date"
+required>
+</div>
+
+<div class="input-box">
+<label>Problem / Reason</label>
+<textarea
+name="problem"
+required></textarea>
+</div>
+
+<button class="btn">
+Book Appointment
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
