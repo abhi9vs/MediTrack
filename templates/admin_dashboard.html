@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | MediTrack</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    display:flex;
+    background:#f1f9ff;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:270px;
+    height:100vh;
+    background:linear-gradient(180deg,#0284c7,#0369a1);
+    color:white;
+    padding:30px 20px;
+    position:fixed;
+}
+
+.logo{
+    text-align:center;
+    font-size:32px;
+    font-weight:700;
+}
+
+.logo span{
+    color:#dbeafe;
+}
+
+.menu{
+    margin-top:50px;
+}
+
+.menu a{
+    display:block;
+    text-decoration:none;
+    color:white;
+    padding:16px;
+    border-radius:15px;
+    margin-bottom:15px;
+    transition:0.3s;
+    font-size:16px;
+}
+
+.menu a:hover{
+    background:rgba(255,255,255,0.2);
+}
+
+.logout{
+    position:absolute;
+    bottom:30px;
+    width:85%;
+}
+
+/* Main Content */
+
+.main{
+    margin-left:270px;
+    width:100%;
+    padding:40px;
+}
+
+.top-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.top-bar h1{
+    color:#0f172a;
+}
+
+.admin-name{
+    background:white;
+    padding:15px 25px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+/* Cards */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+    margin-top:40px;
+}
+
+.card{
+    background:white;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.05);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    color:#64748b;
+    margin-bottom:15px;
+}
+
+.card h1{
+    color:#0284c7;
+    font-size:45px;
+}
+
+/* Table */
+
+.table-section{
+    background:white;
+    margin-top:40px;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.05);
+}
+
+.table-section h2{
+    margin-bottom:20px;
+    color:#0f172a;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th{
+    background:#0284c7;
+    color:white;
+    padding:18px;
+    text-align:left;
+}
+
+table td{
+    padding:18px;
+    border-bottom:1px solid #e2e8f0;
+}
+
+.status{
+    background:#dcfce7;
+    color:#15803d;
+    padding:8px 15px;
+    border-radius:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<!-- Sidebar Start -->
+
+<div class="sidebar">
+
+    <h2 class="logo">
+        🏥 MediTrack
+    </h2>
+
+    <a href="/admin">
+        📊 Dashboard
+    </a>
+
+    <a href="/patients">
+        🧑 Patients
+    </a>
+
+    <a href="/add-patient">
+        ➕ Add Patient
+    </a>
+
+    <a href="/appointments">
+        📅 Appointments
+    </a>
+
+    <a href="/logout">
+        🚪 Logout
+    </a>
+
+</div>
+
+<!-- Sidebar End -->
+
+<style>
+
+/* Sidebar */
+
+.sidebar{
+    width:250px;
+    height:100vh;
+    background:linear-gradient(
+        180deg,
+        #0284c7,
+        #0369a1
+    );
+
+    position:fixed;
+    left:0;
+    top:0;
+
+    padding:30px 20px;
+    box-sizing:border-box;
+}
+
+/* Logo */
+
+.logo{
+    color:white;
+    text-align:center;
+    margin-bottom:40px;
+    font-size:30px;
+}
+
+/* Links */
+
+.sidebar a{
+    display:block;
+    text-decoration:none;
+    color:white;
+    padding:15px 20px;
+    margin-bottom:15px;
+    border-radius:12px;
+    font-size:18px;
+    transition:0.3s;
+}
+
+/* Hover */
+
+.sidebar a:hover{
+    background:rgba(
+        255,
+        255,
+        255,
+        0.2
+    );
+}
+
+/* Page content fix */
+
+.main{
+    margin-left:270px;
+    padding:30px;
+}
+
+</style>
+
+
+
+<!-- Main -->
+
+<div class="main">
+
+    <div class="top-bar">
+
+        <div>
+            <h1>Welcome Admin 👋</h1>
+            <p>Manage hospital system efficiently</p>
+        </div>
+
+        <div class="admin-name">
+            {{ current_user.fullname }}
+        </div>
+
+    </div>
+
+    <!-- Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Doctors</h3>
+            <h1>12</h1>
+        </div>
+
+        <div class="card">
+            <h3>Total Patients</h3>
+            <h1>58</h1>
+        </div>
+
+        <div class="card">
+            <h3>Appointments</h3>
+            <h1>26</h1>
+        </div>
+
+        <div class="card">
+            <h3>Reports</h3>
+            <h1>87</h1>
+        </div>
+
+    </div>
+
+    <!-- Table -->
+
+    <div class="table-section">
+
+        <h2>Recent Patients</h2>
+
+        <table>
+
+            <tr>
+                <th>Name</th>
+                <th>Doctor</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>Rahul Sharma</td>
+                <td>Dr. Amit</td>
+                <td>
+                    <span class="status">
+                        Active
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Priya Verma</td>
+                <td>Dr. Singh</td>
+                <td>
+                    <span class="status">
+                        Active
+                    </span>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

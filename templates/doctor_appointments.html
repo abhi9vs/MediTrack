@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Doctor Appointments | MediTrack</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#eef5fb;
+    padding:30px;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#0284c7;
+    color:white;
+    padding:15px;
+}
+
+td{
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+.accept-btn{
+    background:green;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.reject-btn{
+    background:red;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.back{
+    display:inline-block;
+    margin-bottom:20px;
+    background:#0284c7;
+    color:white;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:10px;
+}
+
+.pending{
+    color:orange;
+    font-weight:bold;
+}
+
+.accepted{
+    color:green;
+    font-weight:bold;
+}
+
+.rejected{
+    color:red;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="/doctor" class="back">
+⬅ Doctor Dashboard
+</a>
+
+<div class="container">
+
+<h1>Patient Appointment Requests</h1>
+
+<table>
+
+<tr>
+<th>Patient</th>
+<th>Date</th>
+<th>Problem</th>
+<th>Status</th>
+<th>Time</th>
+<th>Action</th>
+</tr>
+
+{% for appointment in appointments %}
+
+<tr>
+
+<td>
+{{ appointment.patient_name }}
+</td>
+
+<td>
+{{ appointment.appointment_date }}
+</td>
+
+<td>
+{{ appointment.problem }}
+</td>
+
+<td>
+<td>
+
+{% if appointment.appointment_time %}
+{{ appointment.appointment_time }}
+{% else %}
+Not Assigned
+{% endif %}
+
+</td>
+
+{% if appointment.status == "Pending" %}
+<span class="pending">
+Pending
+</span>
+
+{% elif appointment.status == "Accepted" %}
+<span class="accepted">
+Accepted
+</span>
+
+{% else %}
+<span class="rejected">
+Rejected
+</span>
+{% endif %}
+
+</td>
+
+<td>
+
+{% if appointment.status == "Pending" %}
+
+<td>
+
+{% if appointment.status == "Pending" %}
+
+
+
+<option value="">
+Select Time
+</option>
+
+<option value="10:00 AM">
+10:00 AM
+</option>
+
+<option value="11:00 AM">
+11:00 AM
+</option>
+
+<option value="12:00 PM">
+12:00 PM
+</option>
+
+<option value="2:00 PM">
+2:00 PM
+</option>
+
+<option value="4:00 PM">
+4:00 PM
+</option>
+
+</select>
+
+<br>
+
+<button
+type="submit"
+name="action"
+value="accept"
+class="accept-btn"
+>
+Accept
+</button>
+
+<button
+type="submit"
+name="action"
+value="reject"
+class="reject-btn"
+>
+Reject
+</button>
+
+</form>
+
+{% else %}
+
+Done
+
+{% endif %}
+
+</td>
+
+
+
+<input
+type="hidden"
+name="action"
+value="reject"
+>
+
+<button class="reject-btn">
+Reject
+</button>
+
+</form>
+
+{% else %}
+Done
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>
